@@ -55,6 +55,12 @@ addList.addEventListener("click", function () {
 
     localStorage.setItem("toDoItems", JSON.stringify(toDoItems));
   });
+
+  let deleteButton = document.createElement("button");
+  deleteButton.classList.add("delete");
+  deleteButton.textContent = "Delete";
+  toDoDiv.appendChild(deleteButton);
+  deleteButton.addEventListener("click", deleteItem);
 });
 
 function appendToDoList() {
@@ -74,22 +80,35 @@ function appendToDoList() {
     toDoDiv.appendChild(toDoText);
     toDoText.classList.add("toDoText");
     toDoText.value = toDoItems[i];
+
+    let deleteButton = document.createElement("button");
+    deleteButton.classList.add("delete");
+    deleteButton.textContent = "Delete";
+    toDoDiv.appendChild(deleteButton);
+    deleteButton.addEventListener("click", deleteItem);
   }
 }
 
 function checked() {
-  if (radio.checked) {
+  if (this.checked) {
     console.log("hi");
-  } else {
-    console.log("by");
   }
 }
 
-let select = document.querySelector(".select");
+function deleteItem(event) {
+  let toDoDiv = event.target.parentNode;
+  let index = Array.from(div2.children).indexOf(toDoDiv);
 
+  toDoDiv.remove();
+
+  toDoItems.splice(index, 1);
+
+  localStorage.setItem("toDoItems", JSON.stringify(toDoItems));
+}
+
+let select = document.querySelector(".select");
 select.addEventListener("change", function () {
   let option = select.value;
-
   let toDoDivs = div2.querySelectorAll(".toDoDiv");
 
   toDoDivs.forEach(function (toDoDiv) {
