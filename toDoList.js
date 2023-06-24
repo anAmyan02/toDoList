@@ -43,8 +43,6 @@ addList.addEventListener("click", function () {
   radio.setAttribute("type", "checkbox");
   radio.classList.add("radio");
 
-  radio.addEventListener("click", checked);
-
   toDoDiv.appendChild(radio);
   let toDoText = document.createElement("input");
   toDoDiv.appendChild(toDoText);
@@ -54,6 +52,16 @@ addList.addEventListener("click", function () {
     toDoItems.push(toDoText.value);
 
     localStorage.setItem("toDoItems", JSON.stringify(toDoItems));
+
+  });
+
+  radio.addEventListener("change", function () {
+    
+    if (this.checked) {
+      toDoText.classList.add("completed");
+    } else {
+      toDoText.classList.remove("completed");
+    }
   });
 
   let deleteButton = document.createElement("button");
@@ -72,10 +80,8 @@ function appendToDoList() {
     let radio = document.createElement("input");
     radio.setAttribute("type", "checkbox");
     radio.classList.add("radio");
-
-    radio.addEventListener("click", checked);
-
     toDoDiv.appendChild(radio);
+
     let toDoText = document.createElement("input");
     toDoDiv.appendChild(toDoText);
     toDoText.classList.add("toDoText");
@@ -86,12 +92,6 @@ function appendToDoList() {
     deleteButton.textContent = "Delete";
     toDoDiv.appendChild(deleteButton);
     deleteButton.addEventListener("click", deleteItem);
-  }
-}
-
-function checked() {
-  if (this.checked) {
-    console.log("hi");
   }
 }
 
